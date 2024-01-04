@@ -22,35 +22,6 @@ namespace HPMS
         public static string PASSWORD { get; set; }
         public static string URL { get; set; }
 
-    }
-
-    /// <summary>
-    /// 공통 RequestBody
-    /// </summary>
-    public class RequestBody
-    {
-        public string api_cert_key { get; set; }        // 인증키
-        public string entn_lkcd { get; set; }           // 연계업체코드
-        public string manf_nums { get; set; }           // 인계번호
-        public string req_type { get; set; }            // 요청구분
-        public string page_no { get; set; }             // 페이지번호
-        public string period_from_date { get; set; }    // 기간시작일
-        public string period_to_date { get; set; }      // 기간종료일
-        public string subcd_include_yn { get; set; }    // 하위업체포함여부
-    }
-
-    /// <summary>
-    /// 공통 RESPONSE_BODY
-    /// </summary>
-    public class ResponseMessage : Common
-    {
-        public string ifid { get; set; }                // 연계인터페이스ID
-        public string txid { get; set; }                // 트랜젝션ID
-        public string resultCode { get; set; }          // 연계결과코드
-        public string resultMessage { get; set; }       // 연계결과메시지
-        public object errorMessage { get; set; }        // 오류메시지
-        public object totalPageNo { get; set; }         // 총페이지번호
-
         /// <summary>
         /// DB Server 연결
         /// </summary>
@@ -106,7 +77,7 @@ namespace HPMS
         /// <param name="inKey">키/param>
         /// <param name="inIV">vector (IV).</param>
         /// <returns>암호화된 문자열</returns>
-        public static string AES_Encrypt(string data, string inKey, string inIV)
+        public static async Task<string> AES_Encrypt(string data, string inKey, string inIV)
         {
             byte[] Key = Convert.FromBase64String(inKey);
             byte[] IV = Convert.FromBase64String(inIV);
@@ -147,6 +118,35 @@ namespace HPMS
         }
 
 
+
+    }
+
+    /// <summary>
+    /// 공통 RequestBody
+    /// </summary>
+    public class RequestBody
+    {
+        public string api_cert_key { get; set; }        // 인증키
+        public string entn_lkcd { get; set; }           // 연계업체코드
+        public string manf_nums { get; set; }           // 인계번호
+        public string req_type { get; set; }            // 요청구분
+        public string page_no { get; set; }             // 페이지번호
+        public string period_from_date { get; set; }    // 기간시작일
+        public string period_to_date { get; set; }      // 기간종료일
+        public string subcd_include_yn { get; set; }    // 하위업체포함여부
+    }
+
+    /// <summary>
+    /// 공통 RESPONSE_BODY
+    /// </summary>
+    public class ResponseMessage : Common
+    {
+        public string ifid { get; set; }                // 연계인터페이스ID
+        public string txid { get; set; }                // 트랜젝션ID
+        public string resultCode { get; set; }          // 연계결과코드
+        public string resultMessage { get; set; }       // 연계결과메시지
+        public object errorMessage { get; set; }        // 오류메시지
+        public object totalPageNo { get; set; }         // 총페이지번호
 
         // RESPONSE Message에 등록
         public async Task<string> SetResponseMessage(Dictionary<string, object> dict)

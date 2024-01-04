@@ -17,7 +17,7 @@ namespace HPMS
             InitializeComponent();
         }
 
-        private void btnTasol_Click(object sender, EventArgs e)
+        private async void btnTasol_Click(object sender, EventArgs e)
         {
             string json = @"{
               ""LTime"": ""2023 10 10 10:33:59"",
@@ -28,7 +28,7 @@ namespace HPMS
               ""SchdPourQty"": 1500
             }";
 
-            string encryptedJson = AES_Encrypt(json, yourBase64Key, yourBase64IV);
+            string encryptedJson = await Common.AES_Encrypt(json, yourBase64Key, yourBase64IV);
 
         }
 
